@@ -1,0 +1,77 @@
+﻿body {
+    background-image: url(http://imgi.se/image.php?di=ALUA);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#container {
+    margin: 0 auto;
+    width: 1000px;
+    border: #333333 solid 3px;
+    
+    
+}
+
+#header {
+    background-image: url(http://freetwitterheaders.net/wp-content/uploads/2012/12/Lamborghini-Badge-Logo-Emblem-580x290.jpg);
+
+    background-position: center;
+    height: 150px;
+    border-top: white 5px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    width: 1000px;
+    margin: auto;
+    
+}
+
+#header h1 { margin: 0; }
+
+#navigation {
+    float: left;
+    width: 1000px;
+    background: #333;
+    
+}
+
+#navigation ul {
+    margin: 0;
+    padding: 0;
+    
+}
+
+#navigation ul li {
+    list-style-type: none;
+    display: inline;
+
+}
+
+#navigation li a {
+    display: block;
+    float: left;
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    border-right: 3px solid #fff;
+    font-family: Tahoma;
+    font-size: 16px;
+    
+}
+
+#navigation li a:hover { background: #d2691e;  }
+
+#content {
+    clear: left;
+    padding: 20px;
+    background-color: white;
+}
+
+#footer {
+    background: #ccc;
+    text-align: right;
+    padding: 20px;
+    height: 100px;
+}
+
+

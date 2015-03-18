@@ -1,0 +1,6 @@
+C:\Users\Alex\Documents\Visual Studio 2013\Projects\projekttest\projekttest\bin\projekttest.dll.config
+C:\Users\Alex\Documents\Visual Studio 2013\Projects\projekttest\projekttest\bin\projekttest.dll
+C:\Users\Alex\Documents\Visual Studio 2013\Projects\projekttest\projekttest\bin\projekttest.pdb
+C:\Users\Alex\Documents\Visual Studio 2013\Projects\projekttest\projekttest\obj\Debug\projekttest.dll
+C:\Users\Alex\Documents\Visual Studio 2013\Projects\projekttest\projekttest\obj\Debug\projekttest.pdb
+C:\Users\Alex\Documents\Visual Studio 2013\Projects\projekttest\projekttest\obj\Debug\projekttest.csprojResolveAssemblyReference.cache

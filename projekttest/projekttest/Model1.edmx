@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NET_Projekt_2_ADO_ASP_ShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="ArticleID" />
+          </Key>
+          <Property Name="ArticleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nchar" MaxLength="1000" />
+          <Property Name="UnitPrice" Type="nchar" MaxLength="1000" />
+          <Property Name="Image" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="OrderHead">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Address" Type="nchar" MaxLength="50" />
+          <Property Name="Zip" Type="nchar" MaxLength="50" />
+          <Property Name="City" Type="nchar" MaxLength="50" />
+          <Property Name="Processed" Type="nchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="OrderRow">
+          <Key>
+            <PropertyRef Name="OrderRowID" />
+          </Key>
+          <Property Name="OrderRowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="Quantity" Type="nchar" MaxLength="50" />
+          <Property Name="ArticleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Product_types">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OrderHead_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="OrderHead" Type="Self.OrderHead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="OrderHead">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderRow_Articles">
+          <End Role="Articles" Type="Self.Articles" Multiplicity="0..1" />
+          <End Role="OrderRow" Type="Self.OrderRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="OrderRow">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderRow_OrderHead">
+          <End Role="OrderHead" Type="Self.OrderHead" Multiplicity="0..1" />
+          <End Role="OrderRow" Type="Self.OrderRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderHead">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderRow">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NET_Projekt_2_ADO_ASP_ShopModelStoreContainer">
+          <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderHead" EntityType="Self.OrderHead" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderRow" EntityType="Self.OrderRow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_types" EntityType="Self.Product_types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OrderHead_User" Association="Self.FK_OrderHead_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="OrderHead" EntitySet="OrderHead" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderRow_Articles" Association="Self.FK_OrderRow_Articles">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="OrderRow" EntitySet="OrderRow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderRow_OrderHead" Association="Self.FK_OrderRow_OrderHead">
+            <End Role="OrderHead" EntitySet="OrderHead" />
+            <End Role="OrderRow" EntitySet="OrderRow" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NET_Projekt_2_ADO_ASP_ShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="ArticleID" />
+          </Key>
+          <Property Name="ArticleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="UnitPrice" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderRows" Relationship="Self.FK_OrderRow_Articles" FromRole="Articles" ToRole="OrderRow" />
+        </EntityType>
+        <EntityType Name="OrderHead">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Processed" Type="String" MaxLength="400" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_OrderHead_User" FromRole="OrderHead" ToRole="User" />
+          <NavigationProperty Name="OrderRows" Relationship="Self.FK_OrderRow_OrderHead" FromRole="OrderHead" ToRole="OrderRow" />
+        </EntityType>
+        <EntityType Name="OrderRow">
+          <Key>
+            <PropertyRef Name="OrderRowID" />
+          </Key>
+          <Property Name="OrderRowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ArticleID" Type="Int32" />
+          <NavigationProperty Name="Article" Relationship="Self.FK_OrderRow_Articles" FromRole="OrderRow" ToRole="Articles" />
+          <NavigationProperty Name="OrderHead" Relationship="Self.FK_OrderRow_OrderHead" FromRole="OrderRow" ToRole="OrderHead" />
+        </EntityType>
+        <EntityType Name="Product_types">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrderHeads" Relationship="Self.FK_OrderHead_User" FromRole="User" ToRole="OrderHead" />
+        </EntityType>
+        <Association Name="FK_OrderRow_Articles">
+          <End Role="Articles" Type="Self.Article" Multiplicity="0..1" />
+          <End Role="OrderRow" Type="Self.OrderRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="ArticleID" />
+            </Principal>
+            <Dependent Role="OrderRow">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderHead_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="OrderHead" Type="Self.OrderHead" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="OrderHead">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderRow_OrderHead">
+          <End Role="OrderHead" Type="Self.OrderHead" Multiplicity="0..1" />
+          <End Role="OrderRow" Type="Self.OrderRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderHead">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderRow">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NET_Projekt_2_ADO_ASP_ShopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articles" EntityType="Self.Article" />
+          <EntitySet Name="OrderHeads" EntityType="Self.OrderHead" />
+          <EntitySet Name="OrderRows" EntityType="Self.OrderRow" />
+          <EntitySet Name="Product_types" EntityType="Self.Product_types" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_OrderRow_Articles" Association="Self.FK_OrderRow_Articles">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="OrderRow" EntitySet="OrderRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderHead_User" Association="Self.FK_OrderHead_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="OrderHead" EntitySet="OrderHeads" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderRow_OrderHead" Association="Self.FK_OrderRow_OrderHead">
+            <End Role="OrderHead" EntitySet="OrderHeads" />
+            <End Role="OrderRow" EntitySet="OrderRows" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NET_Projekt_2_ADO_ASP_ShopModelStoreContainer" CdmEntityContainer="NET_Projekt_2_ADO_ASP_ShopEntities">
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="NET_Projekt_2_ADO_ASP_ShopModel.Article">
+              <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderHeads">
+            <EntityTypeMapping TypeName="NET_Projekt_2_ADO_ASP_ShopModel.OrderHead">
+              <MappingFragment StoreEntitySet="OrderHead">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderRows">
+            <EntityTypeMapping TypeName="NET_Projekt_2_ADO_ASP_ShopModel.OrderRow">
+              <MappingFragment StoreEntitySet="OrderRow">
+                <ScalarProperty Name="OrderRowID" ColumnName="OrderRowID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_types">
+            <EntityTypeMapping TypeName="NET_Projekt_2_ADO_ASP_ShopModel.Product_types">
+              <MappingFragment StoreEntitySet="Product_types">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="NET_Projekt_2_ADO_ASP_ShopModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

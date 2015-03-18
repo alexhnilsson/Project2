@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1b266e078654443f950263aed8fb151c" Name="Diagram1">
+        <EntityTypeShape EntityType="NET_Projekt_2_ADO_ASP_ShopModel.Article" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NET_Projekt_2_ADO_ASP_ShopModel.OrderHead" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="NET_Projekt_2_ADO_ASP_ShopModel.OrderRow" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NET_Projekt_2_ADO_ASP_ShopModel.Product_types" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NET_Projekt_2_ADO_ASP_ShopModel.User" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="NET_Projekt_2_ADO_ASP_ShopModel.FK_OrderRow_Articles" ManuallyRouted="false" />
+        <AssociationConnector Association="NET_Projekt_2_ADO_ASP_ShopModel.FK_OrderHead_User" ManuallyRouted="false" />
+        <AssociationConnector Association="NET_Projekt_2_ADO_ASP_ShopModel.FK_OrderRow_OrderHead" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
